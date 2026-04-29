@@ -1,573 +1,352 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Church Without Curtains | Grace Community Church</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Inner Healing Workbook</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
-        
-        :root {
-            --grace-blue: #009FE3;
-            --grace-dark: #0f172a;
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
         }
-
-        /* Essential for proper anchor navigation spacing */
-        html {
-            scroll-padding-top: 5rem; /* Matches the 80px (h-20) header */
-        }
-
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #f8fafc;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .text-grace-blue { color: var(--grace-blue); }
-        .bg-grace-blue { background-color: var(--grace-blue); }
-
-        .step-pill {
-            display: inline-block;
-            padding: 0.35rem 1.25rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        /* Escalator Styling */
-        .escalator-step {
-            position: relative;
-            padding-left: 2.5rem;
-        }
-        .escalator-step::before {
-            content: '';
-            position: absolute;
-            left: 0.75rem;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e2e8f0;
-        }
-        .escalator-step:last-child::before {
-            display: none;
-        }
-        .step-dot {
-            position: absolute;
-            left: 0.375rem;
-            top: 0.5rem;
-            width: 0.75rem;
-            height: 0.75rem;
-            background: var(--grace-blue);
-            border-radius: 50%;
-            z-index: 10;
-        }
-
-        /* See-Saw Graphic */
-        .seesaw-container {
-            position: relative;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .seesaw-plank {
-            width: 80%;
-            height: 8px;
-            background: #cbd5e1;
-            border-radius: 4px;
-            transform: rotate(-10deg);
-            position: relative;
-            transition: transform 0.5s ease;
-        }
-        .seesaw-pivot {
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 25px solid var(--grace-blue);
-            position: absolute;
-            bottom: 35px;
-        }
-
-        /* Trap Card Styling */
-        .trap-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .trap-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-
-        /* Smooth mobile transitions */
-        #mobile-menu {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="text-slate-900">
-
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 md:w-12 md:h-12 bg-grace-blue rounded-2xl flex items-center justify-center text-white text-xl md:text-2xl shadow-lg shadow-blue-500/30">
-                    <i class="fas fa-church"></i>
-                </div>
-                <div>
-                    <span class="block font-black text-lg md:text-xl leading-none uppercase tracking-tighter">Grace</span>
-                    <span class="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Community Church</span>
-                </div>
-            </div>
-            <!-- Desktop Nav -->
-            <div class="hidden lg:flex gap-6 font-bold text-[10px] uppercase tracking-widest text-slate-500">
-                <a href="#vision" class="hover:text-grace-blue transition-colors py-2 px-1">Vision</a>
-                <a href="#scripture" class="hover:text-grace-blue transition-colors py-2 px-1">Scripture</a>
-                <a href="#science" class="hover:text-grace-blue transition-colors py-2 px-1">Science</a>
-                <a href="#roadmap" class="hover:text-grace-blue transition-colors py-2 px-1">Roadmap</a>
-                <a href="#traps" class="hover:text-grace-blue transition-colors py-2 px-1">Traps</a>
-                <a href="#essentials" class="hover:text-grace-blue transition-colors py-2 px-1">Essentials</a>
-            </div>
-            <!-- Mobile Toggle -->
-            <button id="menu-btn" class="lg:hidden text-slate-400 p-2 focus:outline-none" aria-label="Toggle Menu">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Nav Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 absolute w-full left-0 p-6 shadow-xl">
-            <div class="flex flex-col gap-4 font-bold text-[11px] uppercase tracking-widest text-slate-500">
-                <a href="#vision" class="mobile-link hover:text-grace-blue py-2">Vision</a>
-                <a href="#scripture" class="mobile-link hover:text-grace-blue py-2">Scripture</a>
-                <a href="#science" class="mobile-link hover:text-grace-blue py-2">Science</a>
-                <a href="#roadmap" class="mobile-link hover:text-grace-blue py-2">Roadmap</a>
-                <a href="#traps" class="mobile-link hover:text-grace-blue py-2">Traps</a>
-                <a href="#essentials" class="mobile-link hover:text-grace-blue py-2">Essentials</a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
 
     <!-- Header -->
-    <header class="bg-slate-900 text-white py-20 md:py-24 px-6 text-center overflow-hidden relative">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]"></div>
-        <h1 class="text-4xl md:text-7xl font-extrabold mb-4 tracking-tight">A Church Without <span class="text-grace-blue">Curtains</span></h1>
-        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light">Trading secrecy for safety. Pulling back the fabric of our digital life.</p>
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-gray-900">Inner Healing Workbook</h1>
+            <p class="text-gray-500 mt-2">Module 03 • Activating Prayer Tool</p>
+        </div>
     </header>
 
-    <!-- Vision Section -->
-    <section id="vision" class="py-12 md:py-20 px-6 -mt-10 relative z-20">
-        <div class="max-w-4xl mx-auto bg-white rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-100">
-            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-6 flex items-center gap-3">
-                <span class="w-1.5 h-8 bg-grace-blue rounded-full"></span> Our Vision for Freedom
-            </h2>
-            <div class="space-y-6 text-slate-600 leading-relaxed text-base md:text-lg">
-                <p class="font-semibold text-slate-800 italic">"We aren't just 'trying harder'; we are intentionally giving our brains the space and time to heal through grace and community."</p>
-                <p>At Grace Community Church, we value integrity above all else. When it comes to our digital lives, many of us live behind heavy curtains of secrecy and isolation. This guide brings together science and scripture to help you step out into the light.</p>
-                <p>We see digital addiction as a dual battle: a <strong>battle for the mind</strong> (biological) and a <strong>battle for the spirit</strong> (spiritual).</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Scripture Section -->
-    <section id="scripture" class="py-16 md:py-24 bg-white px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="step-pill bg-blue-100 text-blue-700">The Spiritual Anchor</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900">Battle for the Spirit</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto">Recovery isn't just biological; it's a renewal of our identity in Christ.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="p-8 rounded-[2rem] border border-slate-100 bg-slate-50 relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-blue-100 text-8xl transition-transform group-hover:scale-110">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
-                    <h4 class="text-grace-blue font-bold text-sm uppercase tracking-widest mb-4">Mind Renewal</h4>
-                    <p class="text-lg text-slate-700 italic mb-6">"Do not be conformed to this world, but be transformed by the renewal of your mind..."</p>
-                    <p class="font-bold text-slate-900 text-sm">— Romans 12:2</p>
-                </div>
-
-                <div class="p-8 rounded-[2rem] border border-slate-100 bg-slate-50 relative overflow-hidden group">
-                    <div class="absolute -right-4 -top-4 text-blue-100 text-8xl transition-transform group-hover:scale-110">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
-                    <h4 class="text-grace-blue font-bold text-sm uppercase tracking-widest mb-4">Walking in Light</h4>
-                    <p class="text-lg text-slate-700 italic mb-6">"But if we walk in the light, as he is in the light, we have fellowship with one another..."</p>
-                    <p class="font-bold text-slate-900 text-sm">— 1 John 1:7</p>
-                </div>
-            </div>
-
-            <div class="mt-12 p-8 bg-blue-600 rounded-[2rem] text-white text-center shadow-xl">
-                <h3 class="text-xl font-bold mb-2">The Power of "Us"</h3>
-                <p class="text-blue-100 max-w-3xl mx-auto italic">"You cannot walk faithfully with Jesus in isolation. By bringing hidden habits into the light of a supportive community, we remove the power of shame."</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Science Section -->
-    <section id="science" class="py-16 md:py-24 bg-slate-50 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
-                <div>
-                    <span class="step-pill bg-blue-100 text-blue-700">The Biology of Freedom</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold mb-8">The Pleasure-Pain See-Saw</h2>
-                    
-                    <div class="space-y-8">
-                        <div class="flex gap-4 md:gap-6">
-                            <div class="w-10 h-10 md:w-12 md:h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 shrink-0">
-                                <i class="fas fa-arrow-up"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg md:text-xl">The Pleasure Side</h4>
-                                <p class="text-sm md:text-base text-slate-600">Engaging in digital traps releases dopamine, tilting the see-saw toward pleasure.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 md:gap-6">
-                            <div class="w-10 h-10 md:w-12 md:h-12 bg-rose-100 rounded-xl flex items-center justify-center text-rose-600 shrink-0">
-                                <i class="fas fa-arrow-down"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg md:text-xl">The Pain Side</h4>
-                                <p class="text-sm md:text-base text-slate-600">To counteract this "high," the brain automatically adds weight to the pain side, manifesting as irritability or anxiety when the screen is off.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 md:gap-6">
-                            <div class="w-10 h-10 md:w-12 md:h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 shrink-0">
-                                <i class="fas fa-lock"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-lg md:text-xl">The Chronic Trap</h4>
-                                <p class="text-sm md:text-base text-slate-600">The brain stays tilted toward pain just to stay "level." This is why people eventually need their phones just to feel "normal."</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl border border-slate-200">
-                    <div class="seesaw-container mb-8">
-                        <div class="seesaw-plank">
-                            <div class="absolute -top-10 left-0 md:left-4 bg-emerald-500 text-white p-2 rounded-lg text-[10px] md:text-xs font-bold shadow-lg">PLEASURE</div>
-                            <div class="absolute -bottom-10 right-0 md:right-4 bg-rose-500 text-white p-2 rounded-lg text-[10px] md:text-xs font-bold shadow-lg">PAIN</div>
-                        </div>
-                        <div class="seesaw-pivot"></div>
-                    </div>
-                    <div class="p-5 bg-slate-900 rounded-2xl text-white">
-                        <h4 class="font-bold mb-2 flex items-center gap-2"><i class="fas fa-brain text-grace-blue"></i> Neuroplasticity</h4>
-                        <p class="text-xs md:text-sm text-slate-400">Stop the dopamine loop, and the brain "grows the grass back." Renewal is a biological reality.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Parents Roadmap Section -->
-    <section id="roadmap" class="py-16 md:py-24 px-6 bg-white border-y border-slate-100">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-12 gap-12 md:gap-16">
-                <div class="lg:col-span-5">
-                    <span class="step-pill bg-orange-100 text-orange-700">Family Strategy</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold mb-6 text-slate-900">Parents Roadmap</h2>
-                    <h3 class="text-lg md:text-xl font-bold mb-8 flex items-center gap-3">
-                        <i class="fas fa-layer-group text-grace-blue"></i> The "Escalator Approach"
-                    </h3>
-                    <div class="space-y-8">
-                        <div class="escalator-step pb-8">
-                            <div class="step-dot"></div>
-                            <h4 class="font-bold text-slate-800">Elementary (5-11): Protector Role</h4>
-                            <p class="text-sm text-slate-500 mt-1">No private devices. Focus on sensory and physical play.</p>
-                        </div>
-                        <div class="escalator-step pb-8">
-                            <div class="step-dot"></div>
-                            <h4 class="font-bold text-slate-800">Middle School (12-14): Trainer Role</h4>
-                            <p class="text-sm text-slate-500 mt-1">Public spaces only. Teach digital hygiene and keep phones out of bedrooms.</p>
-                        </div>
-                        <div class="escalator-step">
-                            <div class="step-dot"></div>
-                            <h4 class="font-bold text-slate-800">High School (15-18): Mentor Role</h4>
-                            <p class="text-sm text-slate-500 mt-1">Collaborative limits. Focus on the "why" to build self-regulation.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 space-y-6 md:space-y-8">
-                    <div class="bg-slate-900 text-white p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-grace-blue"><i class="fas fa-battery-three-quarters"></i> Kitchen Charging Rule</h3>
-                        <p class="text-slate-300 text-sm mb-6">All devices—including those belonging to parents—charge in a neutral zone like the kitchen overnight.</p>
-                        <div class="grid sm:grid-cols-2 gap-4 text-[10px] md:text-xs">
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10"><strong>Protecting Sleep:</strong> Eliminates doomscrolling.</div>
-                            <div class="p-4 bg-white/5 rounded-xl border border-white/10"><strong>Modeling Integrity:</strong> Parents lead by example.</div>
-                        </div>
-                    </div>
-                    <div class="bg-blue-50 p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-blue-100">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-slate-900">From Secrecy to Safety</h3>
-                        <p class="text-sm text-slate-600">"If they knew, they wouldn't love me." Addiction thrives in the dark. We shift from a "policing" mindset to a "shepherding" mindset.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- The 6 Digital Traps -->
-    <section id="traps" class="py-16 md:py-24 px-6 bg-slate-50">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12 md:mb-16">
-                <span class="step-pill bg-purple-100 text-purple-700">Heart-Level Awareness</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900">The 6 Digital Traps</h2>
-                <p class="text-slate-500 max-w-2xl mx-auto text-sm md:text-base">Identify the brain triggers and learn how to respond as a parent or leader.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+        
+        <!-- Navigation Sidebar -->
+        <nav class="w-full md:w-64 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-8">
                 
-                <!-- Trap Card 1 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-hashtag"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Social Media</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Social Validation:</strong> Hits of dopamine from likes mimic real acceptance.</p>
-                        </div>
-                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-blue-500 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Ban phones in bedrooms to stop comparison loops.</p>
-                                <p><strong>Church:</strong> Address the "Shame Cycle" by modeling vulnerability.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-objectives" onclick="switchTab('objectives')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-blue-600 bg-blue-50 text-blue-700 font-medium">
+                    <i class="ph ph-target text-xl text-blue-600"></i>
+                    Objectives
+                </button>
 
-                <!-- Trap Card 2 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-user-lock"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Pornography</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Hyper-stimulation:</strong> Unnatural novelty that dulls ability for real intimacy.</p>
-                        </div>
-                        <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-purple-500 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Move from "Manager to Mentor"—discuss why purity matters.</p>
-                                <p><strong>Church:</strong> Create "No Judgment Zones" for confession.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-prework" onclick="switchTab('prework')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-pencil-simple text-xl text-gray-400"></i>
+                    Pre-Work
+                </button>
 
-                <!-- Trap Card 3 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Video Gaming</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Variable Rewards:</strong> The "one more level" loop creates fake achievement.</p>
-                        </div>
-                        <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-emerald-500 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Public spaces only. Enforce "Analog Weekends."</p>
-                                <p><strong>Church:</strong> Channel gaming skills into real-world service.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-notes" onclick="switchTab('notes')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-book-open text-xl text-gray-400"></i>
+                    Session Notes
+                </button>
 
-                <!-- Trap Card 4 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-dice"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Online Gambling</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Intermittent Reinforcement:</strong> The "near miss" keeps the brain chasing.</p>
-                        </div>
-                        <div class="bg-rose-50/50 p-4 rounded-xl border border-rose-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-rose-500 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Strictly monitor sports betting and "loot box" apps.</p>
-                                <p><strong>Church:</strong> Provide financial stewardship and recovery classes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-lab" onclick="switchTab('lab')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-users text-xl text-gray-400"></i>
+                    Lab Time
+                </button>
 
-                <!-- Trap Card 5 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Compulsive Shopping</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Stress-Coping:</strong> Used to numb anxiety rather than solving it.</p>
-                        </div>
-                        <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-orange-500 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Model finding joy in "Analog Anchors" like hobbies.</p>
-                                <p><strong>Church:</strong> Focus on holistic recovery—treating the stress source.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-forgiveness" onclick="switchTab('forgiveness')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-heart text-xl text-gray-400"></i>
+                    Forgiveness Tool
+                </button>
 
-                <!-- Trap Card 6 -->
-                <div class="trap-card bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center text-xl">
-                            <i class="fas fa-newspaper"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900">Doomscrolling</h3>
-                    </div>
-                    <div class="space-y-4 flex-grow">
-                        <div class="bg-slate-50 p-4 rounded-xl">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">Brain Trigger</span>
-                            <p class="text-sm text-slate-700"><strong>Outrage Loop:</strong> Wired to pay attention to threats; news exploits this.</p>
-                        </div>
-                        <div class="bg-yellow-50/50 p-4 rounded-xl border border-yellow-200">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-yellow-600 block mb-2">Strategy</span>
-                            <div class="space-y-2 text-sm text-slate-700">
-                                <p><strong>Parent:</strong> Practice intentional silence during school commutes.</p>
-                                <p><strong>Church:</strong> Encourage "First 15" minutes in Scripture.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button id="btn-steps" onclick="switchTab('steps')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-shield-check text-xl text-gray-400"></i>
+                    Healing Steps
+                </button>
+
+                <button id="btn-resources" onclick="switchTab('resources')" class="tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600">
+                    <i class="ph ph-link text-xl text-gray-400"></i>
+                    Resources
+                </button>
 
             </div>
-        </div>
-    </section>
+        </nav>
 
-    <!-- The 6 Essentials Section -->
-    <section id="essentials" class="py-16 md:py-24 bg-white px-6 border-t border-slate-100">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="step-pill bg-emerald-100 text-emerald-700">The New Normal</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-8 text-slate-900">The 6 Grace Essentials</h2>
-                <div class="max-w-3xl mx-auto text-slate-600 leading-relaxed text-base md:text-lg space-y-4">
-                    <p>At Grace, we believe that spiritual development happens when we move from being passive consumers to active participants in the life of Jesus. As you step out from behind the "curtains" of digital secrecy, these six essentials become the markers of your renewed life.</p>
+        <!-- Main Content Area -->
+        <main class="flex-grow bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+            
+            <!-- Objectives Tab -->
+            <div id="objectives" class="tab-content fade-in">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="ph ph-target text-blue-600"></i> Module Objectives
+                </h2>
+                <div class="space-y-4 text-lg text-gray-700">
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <span class="font-bold text-blue-600">1.</span>
+                        <p>Understand the need for inner healing prayer and ongoing spiritual hygiene.</p>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <span class="font-bold text-blue-600">2.</span>
+                        <p>Take the next step forward in your own healing journey.</p>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <span class="font-bold text-blue-600">3.</span>
+                        <p>Consider equipping yourself to offer inner healing prayer to others.</p>
+                    </div>
                 </div>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">1. Gather</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Scrolls → Worship</p>
-                    <p class="text-sm text-slate-500">We prioritize the body in person. Gathering reminds us we are part of something larger.</p>
+
+            <!-- Pre-Work Tab -->
+            <div id="prework" class="tab-content fade-in hidden">
+                <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">
+                    <i class="ph ph-pencil-simple text-blue-600"></i> Pre-Work Questions
+                </h2>
+                <p class="text-gray-600 mb-6">Reflect on your reading and answer the following questions to prepare for the session.</p>
+
+                <div class="space-y-4 mb-6">
+                    <label class="block font-medium text-gray-900">
+                        1. Do you feel there might be an area of brokenness where you need healing? What might be the source (self-wounding, wounded by another, sin, or misinterpretation)?
+                    </label>
+                    <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[120px] resize-y" placeholder="Type your reflections here..."></textarea>
                 </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">2. Connect</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Isolation → Community</p>
-                    <p class="text-sm text-slate-500">C-Groups are where we trade secrecy for safety. Being known is the first step toward healing.</p>
+
+                <div class="space-y-4 mb-6">
+                    <label class="block font-medium text-gray-900">
+                        2. Which, if any, of the effects of living separated from your heart have you experienced?
+                    </label>
+                    <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[120px] resize-y" placeholder="Type your reflections here..."></textarea>
                 </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">3. Serve</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Indulgence → Action</p>
-                    <p class="text-sm text-slate-500">Putting down the phone to pick up a towel. We find real achievement in service.</p>
-                </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">4. Influence</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Feed → Authentic Life</p>
-                    <p class="text-sm text-slate-500">Influence isn't followers, but integrity without a filter.</p>
-                </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">5. Devotion</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Noise → First 15</p>
-                    <p class="text-sm text-slate-500">Spend the first 15 minutes of your day in the Word before any app.</p>
-                </div>
-                <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                    <h4 class="text-xl font-bold mb-2">6. Generosity</h4>
-                    <p class="text-[10px] font-black text-grace-blue uppercase tracking-widest mb-4">Consumption → Open Hands</p>
-                    <p class="text-sm text-slate-500">Spending time and money to bless others instead of draining them on digital idols.</p>
+
+                <div class="space-y-4">
+                    <label class="block font-medium text-gray-900">
+                        3. What areas can you identify in your life where taking spiritual authority will help you combat enemy attacks (e.g., vows, curses, dedications, sin, trauma)?
+                    </label>
+                    <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[120px] resize-y" placeholder="Type your reflections here..."></textarea>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-500 py-16 md:py-20 px-6 text-center">
-        <p class="text-xs uppercase tracking-[0.4em] font-bold">Grace Community Church &copy; 2026</p>
-    </footer>
+            <!-- Session Notes Tab -->
+            <div id="notes" class="tab-content fade-in hidden h-full flex-col">
+                <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">
+                    <i class="ph ph-book-open text-blue-600"></i> Session Notes
+                </h2>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg">
+                    <p class="italic text-blue-900">"He heals the brokenhearted and binds up their wounds." - Psalm 147:3</p>
+                </div>
+                <textarea class="w-full flex-grow p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[400px] resize-y" placeholder="Use this space to take notes during the presentation..."></textarea>
+            </div>
 
+            <!-- Lab Time Tab -->
+            <div id="lab" class="tab-content fade-in hidden space-y-8">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <i class="ph ph-users text-blue-600"></i> Practice Inner Healing
+                </h2>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Part 1: Guided Exercise</h3>
+                    <p class="text-gray-600 mb-4">Encounter Jesus and ask Him about the place where He chose to meet you and how He wants to bring healing. Jot down what you hear below.</p>
+                    <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[150px]" placeholder="What did you hear or experience?"></textarea>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Part 2: Triad Groups</h3>
+                    <p class="text-gray-600 mb-4">Share what you are comfortable sharing. Listen on behalf of others, seal what God did, and bless one another. Jot down notes on how to bless your partners below.</p>
+                    <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[150px]" placeholder="Notes for blessing your partners..."></textarea>
+                </div>
+            </div>
+
+            <!-- Forgiveness Tool Tab -->
+            <div id="forgiveness" class="tab-content fade-in hidden space-y-8">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <i class="ph ph-heart text-blue-600"></i> Forgiveness Exercise
+                </h2>
+                <p class="text-gray-600">Unforgiveness limits your experience of freedom. Walk through these steps to release the debt owed to you.</p>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block font-medium text-gray-900 mb-2">1. Who are you forgiving?</label>
+                        <input type="text" id="offenderInput" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Name of the person">
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-gray-900 mb-2">2. What is the offense? (e.g., broken trust, gossip, betrayal)</label>
+                        <input type="text" id="offenseInput" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="The offense">
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-gray-900 mb-2">3. What were your reactions? (e.g., bitterness, resentment, avoidance)</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 min-h-[100px]" placeholder="List your reactions here..."></textarea>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                        <h3 class="text-lg font-bold text-blue-900 mb-4">Read Your Declaration Aloud:</h3>
+                        <div class="text-blue-900 text-lg space-y-4 italic">
+                            <p>"I forgive <span id="displayOffender" class="font-bold underline px-1">[Name]</span> for <span id="displayOffense" class="font-bold underline px-1">[The Offense]</span>."</p>
+                            <p>"I choose this day to no longer live in reaction to that which you have said and/or done against me."</p>
+                            <p>"I release you from the prison of my unforgiveness. Even as I have been forgiven, so also in Jesus' name I forgive you."</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-gray-500">After reading this, remember to bless the offender and dismiss any oppression.</p>
+                </div>
+            </div>
+
+            <!-- Healing Steps Tab -->
+            <div id="steps" class="tab-content fade-in hidden space-y-6">
+                <h2 class="text-2xl font-bold flex items-center gap-2 mb-6">
+                    <i class="ph ph-shield-check text-blue-600"></i> Inner Healing Guidelines
+                </h2>
+                
+                <div class="grid gap-4">
+                    <!-- Step 1 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</div>
+                        <p class="text-gray-700 pt-1">Identify & feel the emotion.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</div>
+                        <p class="text-gray-700 pt-1">Discover the root event: 'God, when was the first time I experienced this?'</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">3</div>
+                        <p class="text-gray-700 pt-1">Discern the lie believed: 'Jesus, what did I come to believe?'</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">4</div>
+                        <p class="text-gray-700 pt-1">Reveal the truth: 'Lord, what truth do You have to communicate with me about the lie?'</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">5</div>
+                        <p class="text-gray-700 pt-1">Experience His freedom. If bondage remains, ask if there is another lie.</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">6</div>
+                        <p class="text-gray-700 pt-1">Discover what Jesus was doing and feeling when the wounding event took place.</p>
+                    </div>
+                    <!-- Step 7 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">7</div>
+                        <p class="text-gray-700 pt-1">Extend & receive forgiveness (to others, yourself, or God).</p>
+                    </div>
+                    <!-- Step 8 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">8</div>
+                        <p class="text-gray-700 pt-1">Uncover & renounce vows made to protect yourself from pain.</p>
+                    </div>
+                    <!-- Step 9 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">9</div>
+                        <p class="text-gray-700 pt-1">Break any pronouncements made over you by an authority.</p>
+                    </div>
+                    <!-- Step 10 -->
+                    <div class="flex gap-4 items-start p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">10</div>
+                        <p class="text-gray-700 pt-1">Surrender your burden to Jesus and ask what He will give you in return.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Tab -->
+            <div id="resources" class="tab-content fade-in hidden space-y-8">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <i class="ph ph-link text-blue-600"></i> Additional Resources
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="font-bold text-lg mb-3">Recommended Reading</h3>
+                        <ul class="space-y-2 text-gray-700 list-disc pl-5">
+                            <li>The Life Jesus Made Possible by Bill Randall (Chapters 5-6)</li>
+                            <li>Moving Mountains by John Eldredge (Chapters 14-15)</li>
+                            <li>Two Hours to Freedom by Charles Kraft</li>
+                            <li>Deliverance: A Journey Toward the Unexpected by Jon Thompson</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="font-bold text-lg mb-3">Podcasts</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle text-green-500 text-xl flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Stories from the Toolshed</strong> - Episode 3: Inner Healing</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle text-green-500 text-xl flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Everfree Podcast</strong> - Inner Healing and Deliverance Prayer Model</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle text-green-500 text-xl flex-shrink-0 mt-0.5"></i>
+                                <span><strong>Wild at Heart</strong> - Spiritual Warfare (Part 1 in a 7-part series)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="font-bold text-lg mb-3">Articles & Exercises</h3>
+                        <ul class="space-y-2 text-gray-700 list-disc pl-5">
+                            <li>White Wall Exercise by Keith and Megan Peeler</li>
+                            <li>Prayer After Care Exercises</li>
+                            <li>Who am I in Christ? (Scripture references)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h3 class="font-bold text-lg mb-3">Interactive Content</h3>
+                        <ul class="space-y-2 text-gray-700 list-disc pl-5">
+                            <li><a href="https://share.articulate.com/nIiYmBY-8UzSulvdXaLQE" target="_blank" class="text-blue-600 hover:underline">Inner Healing Interactive Module</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Interactive JavaScript -->
     <script>
-        // DOM Elements
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const headerHeight = 80;
-
-        // Mobile Menu Toggle
-        menuBtn.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                setTimeout(() => mobileMenu.style.opacity = '1', 10);
-            } else {
-                mobileMenu.style.opacity = '0';
-                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
-            }
-        });
-
-        // Smooth Scrolling with specific platform handling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                // Close mobile menu if open
-                mobileMenu.classList.add('hidden');
-                mobileMenu.style.opacity = '0';
-
-                const targetId = this.getAttribute('href');
-                const target = document.querySelector(targetId);
-                
-                if (target) {
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Update URL without jump
-                    history.pushState(null, null, targetId);
-                }
+        // Tab switching logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.add('hidden');
+                // Remove flex-col from notes tab if it's hidden to prevent layout issues
+                if(tab.id === 'notes') tab.classList.remove('flex'); 
             });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(tabId);
+            selectedTab.classList.remove('hidden');
+            // Add flex layout back to notes tab if selected
+            if(tabId === 'notes') selectedTab.classList.add('flex');
+
+            // Reset all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-transparent hover:bg-gray-50 text-gray-600";
+                const icon = btn.querySelector('i');
+                icon.classList.remove('text-blue-600');
+                icon.classList.add('text-gray-400');
+            });
+
+            // Highlight selected button
+            const selectedBtn = document.getElementById('btn-' + tabId);
+            selectedBtn.className = "tab-btn w-full flex items-center gap-3 px-4 py-4 text-left transition-colors border-l-4 border-blue-600 bg-blue-50 text-blue-700 font-medium";
+            const selectedIcon = selectedBtn.querySelector('i');
+            selectedIcon.classList.remove('text-gray-400');
+            selectedIcon.classList.add('text-blue-600');
+        }
+
+        // Live text updating for the forgiveness tool
+        document.getElementById('offenderInput').addEventListener('input', function(e) {
+            document.getElementById('displayOffender').textContent = e.target.value || '[Name]';
         });
 
-        // Handle window resize (close menu if desktop)
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                mobileMenu.classList.add('hidden');
-            }
+        document.getElementById('offenseInput').addEventListener('input', function(e) {
+            document.getElementById('displayOffense').textContent = e.target.value || '[The Offense]';
         });
     </script>
 </body>
